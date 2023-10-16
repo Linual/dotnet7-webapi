@@ -20,7 +20,7 @@ namespace webapi7.Controllers
             return Ok(characters);
         }
 
-        [HttpGet("{}")]
+        [HttpGet("{id}")]
         public ActionResult<Character> GetSingle(int id) {
             return Ok(characters.FirstOrDefault(c => c.Id == id));
         }
