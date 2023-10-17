@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components.Forms;
 
-namespace webapi7.Models
+namespace webapi7.Dtos.Character
 {
-    public class Character
+    public class GetCharacterDto
     {
         public int Id { get; set; }
         public string? Name { get; set; } = "Frodo";

@@ -19,21 +19,43 @@ namespace webapi7.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponce<List<Character>>>> Get()
+        public async Task<ActionResult<ServiceResponce<List<GetCharacterDto>>>> Get()
         {
             return Ok(await _characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponce<Character>>> GetSingle(int id)
+        public async Task<ActionResult<ServiceResponce<GetCharacterDto>>> GetSingle(int id)
         {
             return Ok(await _characterService.GetCharacterById(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponce<List<Character>>>> AddCharacter(Character newCharacter)
+        public async Task<ActionResult<ServiceResponce<List<GetCharacterDto>>>> AddCharacter(AddCharacterDto newCharacter)
         {
             return Ok(await _characterService.AddCharacter(newCharacter));
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponce<List<GetCharacterDto>>>> UpdateCharacter(UpdateCharacterDto updatedCharacter)
+        {
+            var responce = await _characterService.UpdateCharacter(updatedCharacter);
+            if (responce.Data is null)
+            {
+                return NotFound(responce);
+            }
+            return Ok(responce);
+        }
+
+        [HttpDelete("id")]
+        public async Task<ActionResult<ServiceResponce<GetCharacterDto>>> DeleteCharacter(int id)
+        {
+            var responce = await _characterService.DeleteCharacter(id);
+            if (responce.Data is null)
+            {
+                return NotFound(responce);
+            }
+            return Ok(responce);
         }
     }
 }

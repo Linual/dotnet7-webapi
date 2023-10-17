@@ -8,8 +8,10 @@ namespace webapi7.Services.CharacterService
 {
     public interface ICharacterService
     {
-        Task<ServiceResponce<List<Character>>> GetAllCharacters();
-        Task<ServiceResponce<Character>> GetCharacterById(int id);
-        Task<ServiceResponce<List<Character>>> AddCharacter(Character newCharacter);
+        Task<ServiceResponce<List<GetCharacterDto>>> GetAllCharacters();
+        Task<ServiceResponce<GetCharacterDto>> GetCharacterById(int id);
+        Task<ServiceResponce<List<GetCharacterDto>>> AddCharacter(AddCharacterDto newCharacter);
+        Task<ServiceResponce<GetCharacterDto>> UpdateCharacter(UpdateCharacterDto updatedCharacter);
+        Task<ServiceResponce<List<GetCharacterDto>>> DeleteCharacter(int id);
     }
 }
