@@ -19,18 +19,44 @@ namespace dotnet7.Data
             throw new NotImplementedException();
         }
 
-        public async Task<ServiceResponce<int>> Register(User user, string passwords)
+        public async Task<ServiceResponce<int>> Register(User user, string password)
         {
-            _context.UsersAdd(user);
-            await _context.SaveChangesAsync();
             var responce = new ServiceResponce<int>();
+
+            if (await UserExists(user.Username))
+            {
+                responce.Success = false;
+                responce.Message = "User already exists.";
+                return responce;
+            }
+
+            CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
+            
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
             responce.Data = user.Id;
             return responce;
         }
 
-        public Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string username)
         {
-            throw new NotImplementedException();
+            if (await _context.Users.AnyAsync(u => u.Username.ToLower() == username.ToLower()))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
         }
     }
 }

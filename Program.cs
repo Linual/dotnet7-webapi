@@ -3,6 +3,7 @@ global using webapi7.Services.CharacterService;
 global using webapi7.Dtos.Character;
 global using Microsoft.EntityFrameworkCore;
 global using webapi7.Data;
+using dotnet7.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ICharacterService, CharacterService>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
 var app = builder.Build();
 
