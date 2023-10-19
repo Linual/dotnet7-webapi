@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using dotnet7.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +21,6 @@ namespace webapi7.Controllers
             _characterService = characterService;
         }
 
-        [AllowAnonymous]
         [HttpGet("GetAll")]
         public async Task<ActionResult<ServiceResponce<List<GetCharacterDto>>>> Get()
         {
