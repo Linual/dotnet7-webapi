@@ -60,5 +60,11 @@ namespace webapi7.Controllers
             }
             return Ok(responce);
         }
+
+        [HttpPost("Skill")]
+        public async Task<ActionResult<ServiceResponce<GetCharacterDto>>> AddCharacterSkill(AddCharacterSkillDto newCharacterSkill)
+        {
+            return Ok(await _characterService.AddCharacterSkill(newCharacterSkill));
+        }
     }
 }
