@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnet7.Dtos.Fight;
 using webapi7.Dtos.Skill;
 using webapi7.Dtos.Weapon;
 
@@ -16,6 +17,7 @@ namespace webapi7
             CreateMap<UpdateCharacterDto, Character>();
             CreateMap<Weapon, GetWeaponDto>();
             CreateMap<Skill, GetSkillDto>();
+            CreateMap<Character, HighscoreDto>();
         }
     }
 }
